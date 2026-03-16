@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مسابقة المعرفة الإسلامية - المطور</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="game-wrapper">
+        <div id="marketplace-ui" class="market-overlay">
+            <div class="market-content">
+                <h3>السوق التجاري 🛒</h3>
+                <div class="market-item">
+                    <span>إضافة 20 ثانية</span>
+                    <button onclick="buyItem('extraTime', 10, 'silver')">💰 10 فضة</button>
+                </div>
+                <div class="market-item">
+                    <span>حذف إجابتين (50:50)</span>
+                    <button onclick="buyItem('halfHalf', 15, 'silver')">💰 15 فضة</button>
+                </div>
+                <div class="market-item">
+                    <span>فرصة ثانية (Revive)</span>
+                    <button onclick="buyItem('revive', 2, 'gold')">🏆 2 ذهب</button>
+                </div>
+                <button class="btn-main btn-outline" onclick="toggleMarket(false)">إغلاق المتجر</button>
+            </div>
+        </div>
+
+        <div class="top-nav">
+            <div class="wallet-bar">
+                <div class="coin-unit" id="gold-ui">
+                    <span id="gold-val">0</span> <div class="icon-circle bg-gold"></div>
+                </div>
+                <div class="coin-unit" id="silver-ui">
+                    <span id="silver-val">0</span> <div class="icon-circle bg-silver"></div>
+                </div>
+            </div>
+            <button class="mini-market-btn" onclick="toggleMarket(true)">🛒</button>
+        </div>
+
+        <div id="home-screen" class="screen active">
+            <div class="emoji-hero">🕌</div>
+            <h1>اختبار المعرفة</h1>
+            <p>تحدَّ نفسك واجمع الجوائز!</p>
+            <button class="btn-main" onclick="goToScreen('level-screen')">ابدأ الرحلة</button>
+        </div>
+
+        <div id="level-screen" class="screen">
+            <h2>اختر المستوى</h2>
+            <div class="level-card" onclick="setupGame('easy', 5, 1)">
+                <div class="level-info"><strong>سهل</strong><small>5 أسئلة</small></div>
+                <div class="level-icon">🌱</div>
+            </div>
+            <div class="level-card" onclick="setupGame('medium', 10, 2)">
+                <div class="level-info"><strong>متوسط</strong><small>10 أسئلة</small></div>
+                <div class="level-icon">🛡️</div>
+            </div>
+            <div class="level-card" onclick="setupGame('hard', 15, 3)">
+                <div class="level-info"><strong>صعب</strong><small>15 أسئلة</small></div>
+                <div class="level-icon">⚔️</div>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="screen">
+            <div class="timer-container">
+                <div id="timer-bar"></div>
+                <span id="timer-text">30</span>
+            </div>
+            
+            <div class="inventory-bar">
+                <button onclick="useExtraTime()" id="btn-use-time">⏱️ <span id="count-time">0</span></button>
+                <button onclick="useHalfHalf()" id="btn-use-half">🌓 <span id="count-half">0</span></button>
+            </div>
+
+            <div class="q-meta">
+                <span id="q-counter">1/5</span>
+                <span class="silver-reward">💎 +1</span>
+            </div>
+            <div class="progress-container"><div id="progress-fill"></div></div>
+            <div id="question-text" class="question-box"></div>
+            <div id="options-container" class="options-list"></div>
+        </div>
+
+        <div id="win-screen" class="screen">
+            <div class="emoji-hero">🏆</div>
+            <h2 class="gold-text">أحسنت!</h2>
+            <p id="win-message"></p>
+            <button class="btn-main" onclick="goToScreen('level-screen')">عودة</button>
+        </div>
+
+        <div id="fail-screen" class="screen">
+            <div class="emoji-hero">💡</div>
+            <h2 class="error-text">انتهت المحاولة</h2>
+            <p id="fail-message"></p>
+            <div id="revive-offer" style="display:none;">
+                <button class="btn-main" style="background:var(--accent)" onclick="useRevive()">استخدام فرصة ثانية (<span id="count-revive">0</span>)</button>
+            </div>
+            <button class="btn-main btn-outline" onclick="goToScreen('level-screen')">الرئيسية</button>
+        </div>
+    </div>
+
+    <script src="./questions.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>
